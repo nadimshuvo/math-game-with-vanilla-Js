@@ -7,6 +7,9 @@ const progressBar = document.querySelector(".progress-inner");
 const endMessage = document.querySelector(".end-message");
 const resetButton = document.querySelector(".reset-button");
 
+let timer;
+let timeRemaining = 0;
+
 let state = {
   score: 0,
   wrongAnswers: 0,
@@ -20,6 +23,12 @@ function updateProblem() {
 }
 
 updateProblem();
+
+// update timer display function
+
+function updateTimerDisplay() {
+  document.querySelector(".timer").textContent = `${timeRemaining}`;
+}
 
 function generateNumber(max) {
   return Math.floor(Math.random() * (max + 1));
@@ -68,9 +77,7 @@ function checkLogic() {
       "url('./win_img.jpg')";
     setTimeout(() => resetButton.focus(), 331);
   }
-
-  // if you lost
-  if (state.wrongAnswers === 3) {
+  else if (state.wrongAnswers === 3) {
     endMessage.textContent = "Sorry! You lost.";
     endMessage.style.color = "#fef186";
     document.body.classList.add("overlay-is-open");
@@ -83,6 +90,7 @@ function checkLogic() {
 resetButton.addEventListener("click", resetGame);
 
 function resetGame() {
+  clearInterval(timer);
   document.body.classList.remove("overlay-is-open");
   updateProblem();
   state.score = 0;
@@ -90,6 +98,28 @@ function resetGame() {
   pointsNeeded.textContent = 10;
   mistakesAllowed.textContent = 2;
   renderProgressBar();
+  timeRemaining = 30;
+
+  timer = setInterval(function () {
+    timeRemaining--;
+    updateTimerDisplay();
+    if (timeRemaining === 0) {
+      clearInterval(timer);
+      endGame()
+    }
+  }, 1000);
+}
+
+// end Game
+function endGame() {
+  if (state.score !== 10) {
+    endMessage.textContent = "Sorry! You lost.";
+    endMessage.style.color = "#fef186";
+    document.body.classList.add("overlay-is-open");
+    document.querySelector(".overlay").style.backgroundImage =
+      "url('./rip_img.jpg')";
+    setTimeout(() => resetButton.focus(), 331);
+  }
 }
 
 function renderProgressBar() {

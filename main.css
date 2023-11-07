@@ -10,6 +10,20 @@ body {
   background-size: cover;
 }
 
+
+
+.timer {
+  color: red;
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .main-ui {
   max-width: 800px;
   padding-top: 200px;
