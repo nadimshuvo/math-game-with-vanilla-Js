@@ -60,16 +60,22 @@ function handleSubmit(e) {
 
 function checkLogic() {
   // if you won
-  if (state.score === 10) {
+  if (state.score === 1) {
     endMessage.textContent = "Congrats! You won.";
+    endMessage.style.color = "white";
     document.body.classList.add("overlay-is-open");
+    document.querySelector(".overlay").style.backgroundImage =
+      "url('./win_img.jpg')";
     setTimeout(() => resetButton.focus(), 331);
   }
 
   // if you lost
   if (state.wrongAnswers === 3) {
     endMessage.textContent = "Sorry! You lost.";
+    endMessage.style.color = "#fef186";
     document.body.classList.add("overlay-is-open");
+    document.querySelector(".overlay").style.backgroundImage =
+      "url('./rip_img.jpg')";
     setTimeout(() => resetButton.focus(), 331);
   }
 }
