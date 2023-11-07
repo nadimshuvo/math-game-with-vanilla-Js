@@ -60,7 +60,7 @@ function handleSubmit(e) {
 
 function checkLogic() {
   // if you won
-  if (state.score === 1) {
+  if (state.score === 10) {
     endMessage.textContent = "Congrats! You won.";
     endMessage.style.color = "white";
     document.body.classList.add("overlay-is-open");
